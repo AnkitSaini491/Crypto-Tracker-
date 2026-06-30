@@ -1,32 +1,32 @@
-
 // =========================
-// Crypto Tracker JS
+// Crypto Tracker Script
 // =========================
 
-// Search Coins
+// Search Function
+
 const search = document.getElementById("search");
 
-if (search) {
+if(search){
 
-search.addEventListener("keyup", () => {
+search.addEventListener("keyup",function(){
 
-let value = search.value.toLowerCase();
+let value=this.value.toLowerCase();
 
-let cards = document.querySelectorAll(".card");
+let cards=document.querySelectorAll(".card");
 
-cards.forEach(card => {
+cards.forEach(card=>{
 
-let name = card.querySelector("h2").innerText.toLowerCase();
+let name=card.querySelector("h2").innerText.toLowerCase();
 
-let symbol = card.querySelector("h4").innerText.toLowerCase();
+let symbol=card.querySelector("h4").innerText.toLowerCase();
 
-if(name.includes(value) || symbol.includes(value)){
+if(name.includes(value)||symbol.includes(value)){
 
-card.style.display="block";
+card.parentElement.style.display="block";
 
 }else{
 
-card.style.display="none";
+card.parentElement.style.display="none";
 
 }
 
@@ -36,7 +36,9 @@ card.style.display="none";
 
 }
 
-// Auto Refresh Every 30 Seconds
+// =========================
+// Auto Refresh Every 30 sec
+// =========================
 
 setInterval(()=>{
 
@@ -44,12 +46,11 @@ location.reload();
 
 },30000);
 
+// =========================
+// Card Animation
+// =========================
 
-// Fade Animation
-
-const cards=document.querySelectorAll(".card");
-
-const observer=new IntersectionObserver(entries=>{
+const observer=new IntersectionObserver((entries)=>{
 
 entries.forEach(entry=>{
 
@@ -65,28 +66,29 @@ entry.target.style.transform="translateY(0)";
 
 });
 
-cards.forEach(card=>{
+document.querySelectorAll(".card").forEach(card=>{
 
 card.style.opacity="0";
 
-card.style.transform="translateY(40px)";
+card.style.transform="translateY(50px)";
 
-card.style.transition=".6s";
+card.style.transition=".6s ease";
 
 observer.observe(card);
 
 });
 
-
-// Scroll Navbar Effect
+// =========================
+// Navbar Shadow
+// =========================
 
 window.addEventListener("scroll",()=>{
 
 const nav=document.querySelector("nav");
 
-if(window.scrollY>30){
+if(window.scrollY>20){
 
-nav.style.boxShadow="0 5px 20px rgba(0,0,0,.4)";
+nav.style.boxShadow="0 5px 20px rgba(0,212,255,.3)";
 
 }else{
 
@@ -96,34 +98,85 @@ nav.style.boxShadow="none";
 
 });
 
+// =========================
+// Smooth Scroll
+// =========================
 
-// Loading Animation
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 
-window.onload=()=>{
+anchor.addEventListener("click",function(e){
 
-document.body.style.opacity="1";
+e.preventDefault();
 
-};
+document.querySelector(this.getAttribute("href")).scrollIntoView({
 
-document.body.style.opacity="0";
+behavior:"smooth"
 
-document.body.style.transition=".5s";
+});
 
+});
 
-// Coin Card Hover Sound (Optional)
+});
 
-cards.forEach(card=>{
+// =========================
+// Live Time
+// =========================
+
+function updateTime(){
+
+const footer=document.querySelector("footer p");
+
+if(footer){
+
+const now=new Date();
+
+footer.innerHTML=
+`© 2025 Crypto Tracker | Updated : ${now.toLocaleTimeString()}`;
+
+}
+
+}
+
+updateTime();
+
+setInterval(updateTime,1000);
+
+// =========================
+// Hover Effect
+// =========================
+
+document.querySelectorAll(".card").forEach(card=>{
 
 card.addEventListener("mouseenter",()=>{
 
-card.style.transform="translateY(-10px) scale(1.03)";
+card.style.transform="translateY(-10px) scale(1.02)";
 
 });
 
 card.addEventListener("mouseleave",()=>{
 
-card.style.transform="translateY(0)";
+card.style.transform="translateY(0) scale(1)";
 
 });
 
 });
+
+// =========================
+// Loading Effect
+// =========================
+
+window.onload=()=>{
+
+document.body.style.opacity="1";
+
+}
+
+document.body.style.opacity="0";
+
+document.body.style.transition=".5s";
+
+// =========================
+// Console Message
+// =========================
+
+console.log("Crypto Tracker Loaded Successfully");
