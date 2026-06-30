@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +22,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <nav>
 
 <div class="logo">
+
 <i class="fa-brands fa-bitcoin"></i>
+
 CryptoTracker
+
 </div>
 
 <ul>
@@ -49,26 +51,52 @@ About
 
 <p>
 
-Crypto Tracker is a modern Flask web application that displays real-time cryptocurrency prices, market trends, and market capitalization using the CoinGecko API.
+Crypto Tracker is a professional cryptocurrency dashboard
+built using Flask and CoinGecko API.
 
-It offers a clean dashboard, fast search, responsive design, and live market updates for popular cryptocurrencies.
+Track live crypto prices,
+market capitalization,
+24 hour changes,
+coin rankings,
+and detailed market statistics.
 
 </p>
 
 </section>
 
-<section class="coins">
+<section class="market">
+
+<div class="coin-container">
 
 <div class="card">
 
 <i class="fa-solid fa-chart-line"
-style="font-size:60px;color:#00d4ff;"></i>
+style="font-size:55px;color:#00d4ff;"></i>
 
-<h2>Live Market</h2>
+<h2>Live Prices</h2>
 
 <p>
 
-Get real-time cryptocurrency prices with automatic updates.
+Real-time cryptocurrency market prices.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-coins"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Top Coins</h2>
+
+<p>
+
+Track Bitcoin,
+Ethereum,
+BNB,
+Solana,
+XRP and many more.
 
 </p>
 
@@ -77,13 +105,13 @@ Get real-time cryptocurrency prices with automatic updates.
 <div class="card">
 
 <i class="fa-solid fa-magnifying-glass"
-style="font-size:60px;color:#00d4ff;"></i>
+style="font-size:55px;color:#00d4ff;"></i>
 
-<h2>Search Coins</h2>
+<h2>Search</h2>
 
 <p>
 
-Instantly search Bitcoin, Ethereum, Solana, Dogecoin and thousands of cryptocurrencies.
+Instantly search any cryptocurrency.
 
 </p>
 
@@ -91,26 +119,81 @@ Instantly search Bitcoin, Ethereum, Solana, Dogecoin and thousands of cryptocurr
 
 <div class="card">
 
-<i class="fa-solid fa-mobile-screen-button"
-style="font-size:60px;color:#00d4ff;"></i>
+<i class="fa-solid fa-mobile-screen"
+style="font-size:55px;color:#00d4ff;"></i>
 
 <h2>Responsive</h2>
 
 <p>
 
-Fully optimized for Desktop, Tablet and Mobile devices.
+Works perfectly on
+Desktop,
+Tablet
+and Mobile.
 
 </p>
 
 </div>
 
+<div class="card">
+
+<i class="fa-solid fa-shield-halved"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Secure API</h2>
+
+<p>
+
+Powered by the
+CoinGecko
+public API.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-code"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Open Source</h2>
+
+<p>
+
+Developed using
+
+Python,
+
+Flask,
+
+HTML,
+
+CSS
+
+and
+
+JavaScript.
+
+</p>
+
+</div>
+
+</div>
+
 </section>
 
-<footer style="text-align:center;padding:30px;color:#94a3b8;">
+<footer>
 
-© 2025 Crypto Tracker | Powered by CoinGecko API
+<p>
+
+© 2025 Crypto Tracker
+
+</p>
 
 </footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 
