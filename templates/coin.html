@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>{{ coin.name }}</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+CryptoTracker
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/about">About</a></li>
+
+</ul>
+
+</nav>
+
+{% if coin %}
+
+<section class="hero">
+
+<img src="{{ coin.image.large }}" width="150">
+
+<h1>{{ coin.name }}</h1>
+
+<h3>{{ coin.symbol.upper() }}</h3>
+
+<h2>
+
+${{ coin.market_data.current_price.usd }}
+
+</h2>
+
+<p>
+
+Market Cap :
+
+${{ "{:,}".format(coin.market_data.market_cap.usd) }}
+
+</p>
+
+<p>
+
+24H High :
+
+${{ coin.market_data.high_24h.usd }}
+
+</p>
+
+<p>
+
+24H Low :
+
+${{ coin.market_data.low_24h.usd }}
+
+</p>
+
+<p>
+
+Rank :
+
+#{{ coin.market_cap_rank }}
+
+</p>
+
+<a href="/">
+
+<button>
+
+Back
+
+</button>
+
+</a>
+
+</section>
+
+{% endif %}
+
+</body>
+
+</html>
