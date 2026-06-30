@@ -7,11 +7,10 @@ load_dotenv()
 
 app = Flask(__name__)
 
-BASE_URL = os.getenv("COINGECKO_API")
+BASE_URL = os.getenv("COINGECKO_API", "https://api.coingecko.com/api/v3")
 
 
-def get_coins():
-
+def get_market_data():
     url = f"{BASE_URL}/coins/markets"
 
     params = {
@@ -24,26 +23,30 @@ def get_coins():
     }
 
     try:
-
-        response = requests.get(url, params=params, timeout=15)
-
-        if response.status_code == 200:
-
-            return response.json()
-
-        return []
-
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        return response.json()
     except Exception as e:
-
-        print(e)
-
+        print("Market Error:", e)
         return []
+
+
+def get_coin_data(coin_id):
+    url = f"{BASE_URL}/coins/{coin_id}"
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        print("Coin Error:", e)
+        return None
 
 
 @app.route("/")
 def home():
 
-    coins = get_coins()
+    coins = get_market_data()
 
     return render_template(
         "index.html",
@@ -54,17 +57,10 @@ def home():
 @app.route("/coin/<coin_id>")
 def coin(coin_id):
 
-    try:
+    coin = get_coin_data(coin_id)
 
-        url = f"{BASE_URL}/coins/{coin_id}"
-
-        response = requests.get(url, timeout=15)
-
-        coin = response.json()
-
-    except:
-
-        coin = None
+    if coin is None:
+        return render_template("404.html"),404
 
     return render_template(
         "coin.html",
@@ -74,22 +70,22 @@ def coin(coin_id):
 
 @app.route("/about")
 def about():
-
     return render_template("about.html")
 
 
 @app.errorhandler(404)
-def not_found(e):
-
-    return render_template("about.html"),404
+def page_not_found(e):
+    return render_template("404.html"),404
 
 
 @app.errorhandler(500)
-def error(e):
+def internal_error(e):
+    return render_template("500.html"),500
 
-    return render_template("about.html"),500
 
-
-if __name__=="__main__":
-
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT",5000)),
+        debug=True
+    )
