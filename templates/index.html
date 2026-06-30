@@ -7,9 +7,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Crypto Tracker</title>
+<title>About | Crypto Tracker</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -17,8 +18,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </head>
 
 <body>
-
-<!-- Navbar -->
 
 <nav>
 
@@ -40,114 +39,145 @@ CryptoTracker
 
 </nav>
 
-<!-- Hero -->
-
 <section class="hero">
 
 <h1>
 
-Track
+About
 
-<span>Cryptocurrency</span>
-
-In Real Time
+<span>Crypto Tracker</span>
 
 </h1>
 
 <p>
 
-Live cryptocurrency prices, market cap,
-24 hour change and rankings.
+Crypto Tracker is a professional cryptocurrency dashboard
+built using Flask and CoinGecko API.
+
+Track live crypto prices,
+market capitalization,
+24 hour changes,
+coin rankings,
+and detailed market statistics.
 
 </p>
-
-<input
-
-type="text"
-
-id="search"
-
-placeholder="Search Bitcoin, Ethereum...">
 
 </section>
 
-<!-- Market -->
-
 <section class="market">
-
-<h2>
-
-🔥 Live Market
-
-</h2>
 
 <div class="coin-container">
 
-{% for coin in coins %}
-
-<a
-
-href="/coin/{{ coin.id }}"
-
-class="coin-link">
-
 <div class="card">
 
-<img src="{{ coin.image }}">
+<i class="fa-solid fa-chart-line"
+style="font-size:55px;color:#00d4ff;"></i>
 
-<h2>{{ coin.name }}</h2>
-
-<h4>{{ coin.symbol.upper() }}</h4>
-
-<h3>
-
-${{ "%.2f"|format(coin.current_price) }}
-
-</h3>
-
-{% if coin.price_change_percentage_24h >= 0 %}
-
-<p class="green">
-
-▲ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
-
-</p>
-
-{% else %}
-
-<p class="red">
-
-▼ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
-
-</p>
-
-{% endif %}
-
-<hr>
+<h2>Live Prices</h2>
 
 <p>
 
-Market Cap
-
-</p>
-
-<h5>
-
-${{ "{:,}".format(coin.market_cap) }}
-
-</h5>
-
-<p>
-
-Rank #{{ coin.market_cap_rank }}
+Real-time cryptocurrency market prices.
 
 </p>
 
 </div>
 
-</a>
+<div class="card">
 
-{% endfor %}
+<i class="fa-solid fa-coins"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Top Coins</h2>
+
+<p>
+
+Track Bitcoin,
+Ethereum,
+BNB,
+Solana,
+XRP and many more.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-magnifying-glass"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Search</h2>
+
+<p>
+
+Instantly search any cryptocurrency.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-mobile-screen"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Responsive</h2>
+
+<p>
+
+Works perfectly on
+Desktop,
+Tablet
+and Mobile.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-shield-halved"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Secure API</h2>
+
+<p>
+
+Powered by the
+CoinGecko
+public API.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-code"
+style="font-size:55px;color:#00d4ff;"></i>
+
+<h2>Open Source</h2>
+
+<p>
+
+Developed using
+
+Python,
+
+Flask,
+
+HTML,
+
+CSS
+
+and
+
+JavaScript.
+
+</p>
+
+</div>
 
 </div>
 
