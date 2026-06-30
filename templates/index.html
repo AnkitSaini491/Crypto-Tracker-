@@ -1,98 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Tracker</title>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
+<meta charset="UTF-8">
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Crypto Tracker</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
 
+<!-- Navbar -->
+
 <nav>
 
-    <div class="logo">
-        <i class="fa-brands fa-bitcoin"></i>
-        CryptoTracker
-    </div>
+<div class="logo">
 
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-    </ul>
+<i class="fa-brands fa-bitcoin"></i>
 
-</nav>
-
-<section class="hero">
-
-    <h1>
-        Live Cryptocurrency
-        <span>Market Dashboard</span>
-    </h1>
-
-    <p>
-        Track live cryptocurrency prices,
-        market cap and daily changes in
-        real time.
-    </p>
-
-    <input
-        type="text"
-        id="search"
-        placeholder="Search Coin...">
-
-</section>
-
-<section class="coins">
-
-{% for coin in coins %}
-
-<div class="card">
-
-    <img src="{{ coin.image }}">
-
-    <h2>{{ coin.name }}</h2>
-
-    <h4>{{ coin.symbol.upper() }}</h4>
-
-    <p class="price">
-        ${{ "%.2f"|format(coin.current_price) }}
-    </p>
-
-    {% if coin.price_change_percentage_24h >= 0 %}
-
-    <p class="green">
-        ▲ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
-    </p>
-
-    {% else %}
-
-    <p class="red">
-        ▼ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
-    </p>
-
-    {% endif %}
-
-    <p>
-        Market Cap
-    </p>
-
-    <h5>
-        ${{ "{:,}".format(coin.market_cap) }}
-    </h5>
+CryptoTracker
 
 </div>
 
-{% endfor %}
+<ul>
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/about">About</a></li>
+
+</ul>
+
+</nav>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<h1>
+
+Track
+
+<span>Cryptocurrency</span>
+
+In Real Time
+
+</h1>
+
+<p>
+
+Live cryptocurrency prices, market cap,
+24 hour change and rankings.
+
+</p>
+
+<input
+
+type="text"
+
+id="search"
+
+placeholder="Search Bitcoin, Ethereum...">
 
 </section>
+
+<!-- Market -->
+
+<section class="market">
+
+<h2>
+
+🔥 Live Market
+
+</h2>
+
+<div class="coin-container">
+
+{% for coin in coins %}
+
+<a
+
+href="/coin/{{ coin.id }}"
+
+class="coin-link">
+
+<div class="card">
+
+<img src="{{ coin.image }}">
+
+<h2>{{ coin.name }}</h2>
+
+<h4>{{ coin.symbol.upper() }}</h4>
+
+<h3>
+
+${{ "%.2f"|format(coin.current_price) }}
+
+</h3>
+
+{% if coin.price_change_percentage_24h >= 0 %}
+
+<p class="green">
+
+▲ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
+
+</p>
+
+{% else %}
+
+<p class="red">
+
+▼ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
+
+</p>
+
+{% endif %}
+
+<hr>
+
+<p>
+
+Market Cap
+
+</p>
+
+<h5>
+
+${{ "{:,}".format(coin.market_cap) }}
+
+</h5>
+
+<p>
+
+Rank #{{ coin.market_cap_rank }}
+
+</p>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+
+© 2025 Crypto Tracker
+
+</p>
+
+</footer>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
+
 </html>
