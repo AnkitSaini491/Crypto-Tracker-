@@ -10,84 +10,82 @@ app = Flask(__name__)
 BASE_URL = os.getenv("COINGECKO_API")
 
 
-# Home
-@app.route("/")
-def home():
+def get_coins():
+
+    url = f"{BASE_URL}/coins/markets"
+
+    params = {
+        "vs_currency": "usd",
+        "order": "market_cap_desc",
+        "per_page": 50,
+        "page": 1,
+        "sparkline": "false",
+        "price_change_percentage": "24h"
+    }
 
     try:
 
-        response = requests.get(
+        response = requests.get(url, params=params, timeout=15)
 
-            f"{BASE_URL}/coins/markets",
+        if response.status_code == 200:
 
-            params={
+            return response.json()
 
-                "vs_currency":"usd",
+        return []
 
-                "order":"market_cap_desc",
+    except Exception as e:
 
-                "per_page":20,
+        print(e)
 
-                "page":1,
-
-                "sparkline":"false"
-
-            }
-
-        )
-
-        coins=response.json()
-
-    except:
-
-        coins=[]
-
-    return render_template("index.html",coins=coins)
+        return []
 
 
-# Coin Details
+@app.route("/")
+def home():
+
+    coins = get_coins()
+
+    return render_template(
+        "index.html",
+        coins=coins
+    )
+
+
 @app.route("/coin/<coin_id>")
 def coin(coin_id):
 
     try:
 
-        response=requests.get(
+        url = f"{BASE_URL}/coins/{coin_id}"
 
-            f"{BASE_URL}/coins/{coin_id}"
+        response = requests.get(url, timeout=15)
 
-        )
-
-        coin=response.json()
+        coin = response.json()
 
     except:
 
-        coin=None
+        coin = None
 
     return render_template(
-
         "coin.html",
-
         coin=coin
-
     )
 
 
-# About
 @app.route("/about")
 def about():
 
     return render_template("about.html")
 
 
-# Error Pages
 @app.errorhandler(404)
-def page_not_found(e):
+def not_found(e):
 
     return render_template("about.html"),404
 
 
 @app.errorhandler(500)
-def server_error(e):
+def error(e):
 
     return render_template("about.html"),500
 
