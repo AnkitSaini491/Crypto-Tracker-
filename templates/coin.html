@@ -1,16 +1,18 @@
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>{{ coin.name }}</title>
+<title>{{ coin.name }} | Crypto Tracker</title>
 
 <link rel="stylesheet"
 href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -19,7 +21,11 @@ href="{{ url_for('static', filename='style.css') }}">
 <nav>
 
 <div class="logo">
+
+<i class="fa-brands fa-bitcoin"></i>
+
 CryptoTracker
+
 </div>
 
 <ul>
@@ -36,55 +42,130 @@ CryptoTracker
 
 <section class="hero">
 
-<img src="{{ coin.image.large }}" width="150">
+<img src="{{ coin.image.large }}" width="140">
 
 <h1>{{ coin.name }}</h1>
 
 <h3>{{ coin.symbol.upper() }}</h3>
 
-<h2>
+</section>
 
-${{ coin.market_data.current_price.usd }}
+<section class="market">
 
-</h2>
+<div class="coin-container">
 
-<p>
+<div class="card">
 
-Market Cap :
+<h2>Current Price</h2>
+
+<h3>
+
+${{ "%.2f"|format(coin.market_data.current_price.usd) }}
+
+</h3>
+
+</div>
+
+<div class="card">
+
+<h2>Market Cap</h2>
+
+<h3>
 
 ${{ "{:,}".format(coin.market_data.market_cap.usd) }}
 
-</p>
+</h3>
 
-<p>
+</div>
 
-24H High :
+<div class="card">
 
-${{ coin.market_data.high_24h.usd }}
+<h2>24H High</h2>
 
-</p>
+<h3>
 
-<p>
+${{ "%.2f"|format(coin.market_data.high_24h.usd) }}
 
-24H Low :
+</h3>
 
-${{ coin.market_data.low_24h.usd }}
+</div>
 
-</p>
+<div class="card">
 
-<p>
+<h2>24H Low</h2>
 
-Rank :
+<h3>
+
+${{ "%.2f"|format(coin.market_data.low_24h.usd) }}
+
+</h3>
+
+</div>
+
+<div class="card">
+
+<h2>Rank</h2>
+
+<h3>
 
 #{{ coin.market_cap_rank }}
 
-</p>
+</h3>
+
+</div>
+
+<div class="card">
+
+<h2>Total Volume</h2>
+
+<h3>
+
+${{ "{:,}".format(coin.market_data.total_volume.usd) }}
+
+</h3>
+
+</div>
+
+</div>
+
+<div style="text-align:center;margin-top:40px;">
+
+<a href="{{ coin.links.homepage[0] }}" target="_blank">
+
+<button style="padding:15px 30px;
+background:#00d4ff;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;">
+
+Visit Official Website
+
+</button>
+
+</a>
+
+</div>
+
+</section>
+
+{% else %}
+
+<section class="hero">
+
+<h1>Coin Not Found</h1>
+
+<p>Please go back and try another cryptocurrency.</p>
 
 <a href="/">
 
-<button>
+<button style="padding:15px 30px;
+background:#00d4ff;
+border:none;
+border-radius:30px;
+cursor:pointer;">
 
-Back
+Back Home
 
 </button>
 
@@ -93,6 +174,18 @@ Back
 </section>
 
 {% endif %}
+
+<footer>
+
+<p>
+
+© 2025 Crypto Tracker
+
+</p>
+
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 
